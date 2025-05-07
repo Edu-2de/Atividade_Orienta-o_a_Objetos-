@@ -1,17 +1,23 @@
-from abc import ABC, abstractmethod
+from produto import Produto
 
 
 
-class Produto(ABC):
-    def __init__(self, modelo, cor, preco, categoria):
-        self.modelo = modelo
-        self.cor = cor
-        self.preco = preco
-        self.categoria = categoria
+class Notebook(Produto):
+    def __init__(self, modelo, cor, preco, categoria, tempoDeBateria):
+        super().__init__(modelo, cor, preco, categoria)
+        self.__tempoDeBateria = tempoDeBateria  # Atributo fortemente privado
+
+   
+    def getTempoDeBateria(self):
+        return self.__tempoDeBateria
+
+   
+    def setTempoDeBateria(self, tempoDeBateria):
+        self.__tempoDeBateria = tempoDeBateria
 
     def getInformacoes(self):
-        return f"Modelo: {self.modelo}, Cor: {self.cor}, Preço: R${self.preco:.2f}, Categoria: {self.categoria.nome}"
+        info = super().getInformacoes()
+        return f"{info}, Tempo de Bateria: {self.__tempoDeBateria} horas"
 
-    @abstractmethod
     def cadastrar(self):
-        pass
+        return f"Notebook cadastrado: {self.getInformacoes()}"
